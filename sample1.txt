@@ -1,0 +1,76 @@
+#include <iostream>
+#include <string>
+#include <algorithm>
+#include <climits>
+#include <cmath>
+#include <stdlib.h>
+#include <vector>
+#include <utility>
+#include <set>
+#include <map>
+#include <unordered_map>
+#include <unordered_set>
+#include <stack>
+#include <queue>
+#include <iomanip>
+
+using namespace std;
+
+#define int long long
+#define ull unsigned long long
+#define f(i, a, n) for (int i = a; i < n; i++)
+#define pii pair<int, int>
+#define len(vec) (vec).size()
+#define vi vector<int>
+#define all(_) (_).begin(), (_).end()
+#define pb push_back
+#define mp make_pair
+
+int mod = 1000000007;
+
+void solve()
+{
+    int n, m;
+    cin >> n >> m;
+    vi a(m);
+    vi p(n, 0);
+    f(i, 0, m)
+    {
+        cin >> a[i];
+        p[a[i] - 1]++;
+    }
+
+    multiset<int> s;
+    f(i, 0, n)
+        s.insert(p[i]);
+
+    while (1)
+    {
+        auto l = s.begin(), r = --s.end();
+        int v1 = *l, v2 = *r;
+        if (v2 - v1 <= 1)
+            break;
+
+        s.erase(l);
+        s.erase(r);
+
+        s.insert(v1 + 2);
+        s.insert(v2 - 1);
+    }
+
+    cout << *max_element(all(s)) << "\n";
+}
+
+signed main()
+{
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+    int testcases;
+    cin >> testcases;
+    while (testcases--)
+    {
+        solve();
+    }
+    return 0;
+}
